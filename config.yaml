@@ -1,0 +1,77 @@
+project:
+  name: "cyber-threat-attribution"
+  version: "0.1.0"
+  random_seed: 42
+
+paths:
+  raw_data: "data/raw"
+  mitre_data: "data/raw/mitre"
+  cti_data: "data/raw/cti"
+
+  interim_data: "data/interim"
+
+  processed_data: "data/processed"
+  graph_data: "data/processed/graph"
+  document_data: "data/processed/documents"
+  evaluation_data: "data/processed/evaluation"
+
+  external_data: "data/external"
+
+  models: "outputs/models"
+  figures: "outputs/figures"
+  tables: "outputs/tables"
+  reports: "outputs/reports"
+
+knowledge_graph:
+  node_types:
+    - ip
+    - domain
+    - malware
+    - vulnerability
+    - technique
+    - threat_actor
+
+  edge_types:
+    - resolves_to
+    - communicates_with
+    - uses
+    - exploits
+    - indicates
+    - attributed_to
+
+  max_hops: 3
+
+gnn:
+  model: "RGCN"
+  hidden_channels: 128
+  num_layers: 3
+  dropout: 0.2
+  learning_rate: 0.001
+  epochs: 100
+
+rag:
+  chunk_size: 500
+  chunk_overlap: 100
+  top_k: 5
+
+  retrieval:
+    dense: true
+    sparse: true
+
+fusion:
+  graph_weight: 0.5
+  text_weight: 0.5
+
+evaluation:
+  top_k:
+    - 1
+    - 5
+
+  metrics:
+    - top_1_accuracy
+    - top_5_accuracy
+    - multi_hop_accuracy
+    - evidence_coverage
+    - unsupported_claim_rate
+    - graph_trail_validity
+    - textual_evidence_validity

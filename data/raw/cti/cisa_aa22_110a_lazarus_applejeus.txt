@@ -1,0 +1,19 @@
+CTI REPORT: cisa_aa22_110a_lazarus_applejeus
+Threat Actor: Lazarus Group
+Aliases: HIDDEN COBRA, Labyrinth Chollima, APT38, Diamond Sleet
+Origin: North Korea Reconnaissance General Bureau (RGB)
+Base Confidence: 0.95
+
+NARRATIVE:
+Joint Cybersecurity Advisory CISA AA22-110A documents North Korean state-sponsored cyber operations targeting cryptocurrency and blockchain firms. Lazarus Group distributes the AppleJeus malware suite hidden inside trojanized trading applications distributed via domain secure-crypto-wallet[.]org and trading-desk-pro[.]com. C2 infrastructure is hosted on IP 175.45.176.8 (Ryugyong-dong Pyongyang allocation) and compromised intermediary VPSs. Lazarus operators exploit Apache Log4j CVE-2021-44228 to gain initial access to server clusters, deploying BLINDINGCAN and AppleJeus implants utilizing multi-stage payload obfuscation (MITRE ATT&CK T1566.002 Spearphishing Link and T1027 Obfuscated Files or Information) to facilitate illicit digital asset theft.
+
+STRUCTURED RELATIONSHIPS:
+ip:175.45.176.8 --resolves_to--> domain:secure-crypto-wallet.org
+ip:175.45.176.8 --resolves_to--> domain:trading-desk-pro.com
+domain:secure-crypto-wallet.org --drops--> malware:AppleJeus
+domain:trading-desk-pro.com --drops--> malware:BLINDINGCAN
+cve:CVE-2021-44228 --exploited_by--> malware:AppleJeus
+malware:AppleJeus --attributed_to--> attack_group:Lazarus Group
+malware:BLINDINGCAN --attributed_to--> attack_group:Lazarus Group
+attack_group:Lazarus Group --uses--> technique:T1566.002
+attack_group:Lazarus Group --uses--> technique:T1027

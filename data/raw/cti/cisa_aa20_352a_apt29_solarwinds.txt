@@ -1,0 +1,19 @@
+CTI REPORT: cisa_aa20_352a_apt29_solarwinds
+Threat Actor: APT29
+Aliases: Cozy Bear, Nobelium, Midnight Blizzard, UNC2452
+Origin: Russian Foreign Intelligence Service (SVR)
+Base Confidence: 0.94
+
+NARRATIVE:
+In December 2020, CISA released Alert AA20-352A regarding an Advanced Persistent Threat (APT) actor attributed as APT29 / Nobelium / Cozy Bear conducting a global supply chain compromise via SolarWinds Orion. The threat actor inserted a malicious backdoor known as SUNBURST (Solorigate) into Orion platform software builds. Upon execution, SUNBURST stayed dormant for up to two weeks before resolving primary command-and-control (C2) domains including avsvmcloud[.]com, using dynamically constructed DGA subdomains to exfiltrate host reconnaissance. Secondary stagers including TEARDROP and Raindrop memory-only droppers communicated with C2 IP 185.225.17.42 and backup infrastructure freescanonline[.]com (hosted at 20.140.8.11). APT29 systematically exploited Exchange vulnerabilities (CVE-2021-26855 ProxyLogon) for lateral movement and forged SAML tokens to compromise cloud identities (MITRE ATT&CK T1195.002 Supply Chain Compromise and T1078 Valid Accounts).
+
+STRUCTURED RELATIONSHIPS:
+ip:185.225.17.42 --resolves_to--> domain:avsvmcloud.com
+ip:20.140.8.11 --resolves_to--> domain:freescanonline.com
+domain:avsvmcloud.com --drops--> malware:SUNBURST
+domain:freescanonline.com --drops--> malware:TEARDROP
+cve:CVE-2021-26855 --exploited_by--> malware:SUNBURST
+malware:SUNBURST --attributed_to--> attack_group:APT29
+malware:TEARDROP --attributed_to--> attack_group:APT29
+attack_group:APT29 --uses--> technique:T1195.002
+attack_group:APT29 --uses--> technique:T1078

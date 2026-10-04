@@ -1,0 +1,19 @@
+CTI REPORT: cisa_aa22_054a_sandworm_industroyer
+Threat Actor: Sandworm Team
+Aliases: TeleBots, Voodoo Bear, Iron Viking, Seashell Blizzard, GRU Unit 74455
+Origin: Russian Main Intelligence Directorate (GRU Main Center for Special Technologies)
+Base Confidence: 0.93
+
+NARRATIVE:
+CISA Advisory AA22-054A exposes destructive cyber attacks executed by Sandworm Team against industrial control systems (ICS). Sandworm engineered Industroyer (CrashOverride) and Industroyer2 to transmit IEC 60870-5-104 commands directly opening electrical transmission circuit breakers. Auxiliary wipers including NotPetya and CaddyWiper were staged via domains kiev-energy-update[.]com and grid-telemetry-sync[.]org on IPs 194.28.172.10 and 91.242.217.5. Initial penetration leverages EternalBlue SMB vulnerability CVE-2017-0144 and Fortinet VPN exploits, culminating in automated data destruction (MITRE ATT&CK T1485 Data Destruction and T1190 Exploit Public-Facing Application).
+
+STRUCTURED RELATIONSHIPS:
+ip:194.28.172.10 --resolves_to--> domain:kiev-energy-update.com
+ip:91.242.217.5 --resolves_to--> domain:grid-telemetry-sync.org
+domain:kiev-energy-update.com --drops--> malware:Industroyer
+domain:grid-telemetry-sync.org --drops--> malware:NotPetya
+cve:CVE-2017-0144 --exploited_by--> malware:Industroyer
+malware:Industroyer --attributed_to--> attack_group:Sandworm Team
+malware:NotPetya --attributed_to--> attack_group:Sandworm Team
+attack_group:Sandworm Team --uses--> technique:T1485
+attack_group:Sandworm Team --uses--> technique:T1190

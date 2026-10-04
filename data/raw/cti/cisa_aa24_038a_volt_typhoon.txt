@@ -1,0 +1,19 @@
+CTI REPORT: cisa_aa24_038a_volt_typhoon
+Threat Actor: Volt Typhoon
+Aliases: Vanguard Panda, Bronze Silhouette, Insidious Taurus
+Origin: People's Republic of China State-Sponsored Actor
+Base Confidence: 0.96
+
+NARRATIVE:
+Joint Advisory CISA AA24-038A details PRC state-sponsored group Volt Typhoon compromising critical infrastructure sectors across the United States (communications, energy, transportation, water). Volt Typhoon emphasizes living-off-the-land (LotL) techniques, abusing built-in Windows admin binaries (wmic, netsh, ntdsutil) rather than traditional malware. To build resilient proxy networks, the group deploys the KV-botnet and Fast Reverse Proxy (FRP) across end-of-life SOHO routers routing through 198.51.100.44 and 203.0.113.88 with dynamic domains like cisco-gateway-mesh[.]org. The actor exploits FortiOS SSL-VPN vulnerability CVE-2023-27997 for edge appliance infiltration and maintains years-long persistence via stolen administrator credentials (MITRE ATT&CK T1078 Valid Accounts and T1572 Protocol Tunneling).
+
+STRUCTURED RELATIONSHIPS:
+ip:198.51.100.44 --resolves_to--> domain:cisco-gateway-mesh.org
+ip:203.0.113.88 --resolves_to--> domain:cisco-gateway-mesh.org
+domain:cisco-gateway-mesh.org --drops--> malware:KV-botnet
+domain:cisco-gateway-mesh.org --drops--> malware:FRP-Proxy
+cve:CVE-2023-27997 --exploited_by--> malware:KV-botnet
+malware:KV-botnet --attributed_to--> attack_group:Volt Typhoon
+malware:FRP-Proxy --attributed_to--> attack_group:Volt Typhoon
+attack_group:Volt Typhoon --uses--> technique:T1078
+attack_group:Volt Typhoon --uses--> technique:T1572

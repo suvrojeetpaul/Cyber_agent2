@@ -1,0 +1,18 @@
+CTI REPORT: mandiant_m_trends_fin7
+Threat Actor: FIN7
+Aliases: Carbanak Group, Navigator Group, ELBRUS
+Origin: Eastern European Financially Motivated Cybercrime Syndicate
+Base Confidence: 0.91
+
+NARRATIVE:
+Mandiant threat analysis and DOJ indictments identify FIN7 as a prolific financially motivated syndicate operating under front companies like Combi Security. FIN7 conducts highly targeted spearphishing against hospitality, restaurant, and retail sectors to steal millions of payment card records. Initial lures deliver weaponized Word docs dropping GRIFFON lightweight JScript backdoors communicating with doc-secure-share[.]info on IP 193.106.191.4. FIN7 actively weaponizes ZeroLogon CVE-2020-1472 against Active Directory Domain Controllers to achieve domain dominance, subsequently staging Carbanak malware to siphon Point-of-Sale (POS) transactions (MITRE ATT&CK T1566.001 Spearphishing Attachment and T1059.003 Windows Command Shell).
+
+STRUCTURED RELATIONSHIPS:
+ip:193.106.191.4 --resolves_to--> domain:doc-secure-share.info
+domain:doc-secure-share.info --drops--> malware:GRIFFON
+domain:doc-secure-share.info --drops--> malware:Carbanak
+cve:CVE-2020-1472 --exploited_by--> malware:Carbanak
+malware:GRIFFON --attributed_to--> attack_group:FIN7
+malware:Carbanak --attributed_to--> attack_group:FIN7
+attack_group:FIN7 --uses--> technique:T1566.001
+attack_group:FIN7 --uses--> technique:T1059.003

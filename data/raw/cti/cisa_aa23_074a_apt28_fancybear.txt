@@ -1,0 +1,19 @@
+CTI REPORT: cisa_aa23_074a_apt28_fancybear
+Threat Actor: APT28
+Aliases: Fancy Bear, Strontium, Forest Blizzard, Sednit, Pawn Storm
+Origin: Russian Main Intelligence Directorate (GRU 85th GTsSS)
+Base Confidence: 0.92
+
+NARRATIVE:
+Advisory CISA AA23-074A details persistent cyber operations by Russian military intelligence GRU Unit 26165 (APT28). APT28 actively weaponizes Microsoft Outlook zero-day CVE-2023-23397 (elevation of privilege via Net-NTLMv2 hash relay). Spearphishing payloads deploy the Zebrocy modular malware family and Golang downloaders, communicating via domain auth-microsoft365[.]com and staging server mail-update-service[.]net hosted on IP 185.141.63.12. APT28 leverages credential access via NTLM stealing (MITRE ATT&CK T1566.001 Spearphishing Attachment and T1059.001 PowerShell command execution) to target governmental, diplomatic, and defense entities across NATO members.
+
+STRUCTURED RELATIONSHIPS:
+ip:185.141.63.12 --resolves_to--> domain:auth-microsoft365.com
+ip:185.141.63.12 --resolves_to--> domain:mail-update-service.net
+domain:auth-microsoft365.com --drops--> malware:Zebrocy
+domain:mail-update-service.net --drops--> malware:Drovorub
+cve:CVE-2023-23397 --exploited_by--> malware:Zebrocy
+malware:Zebrocy --attributed_to--> attack_group:APT28
+malware:Drovorub --attributed_to--> attack_group:APT28
+attack_group:APT28 --uses--> technique:T1566.001
+attack_group:APT28 --uses--> technique:T1059.001
